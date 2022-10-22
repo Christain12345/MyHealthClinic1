@@ -1,0 +1,81 @@
+﻿@model IEnumerable<MyHealthClinic.Models.AvailableTime>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>GP Available Time</h2>
+@if (User.IsInRole("Admin") || User.IsInRole("General Practitioner"))
+{
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+}
+
+<table class="table" id="available-time-table">
+    <thead>
+        <tr>
+            <th>
+                General Practitioner
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StartTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EndTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsBooked)
+            </th>
+            <th></th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GeneralPractioner.FirstName)
+                    @Html.DisplayFor(modelItem => item.GeneralPractioner.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsBooked)
+                </td>
+                <td>
+
+                    @if (User.IsInRole("Admin") || User.IsInRole("General Practitioner"))
+                    {
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-default" })
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-default" })
+                    }
+                    else if (item.IsBooked)
+                    {
+                        @Html.ActionLink("Book", "Edit", new { id = item.Id }, new { @class = "btn btn-default disabled" })
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Book", "Create", "Consults", new { id = item.Id }, new { @class = "btn btn-primary" })
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/datatables")
+    <script>
+        $(document).ready(function () {
+            $('#available-time-table').DataTable();
+        });
+    </script>
+}

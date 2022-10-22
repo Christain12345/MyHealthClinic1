@@ -1,0 +1,64 @@
+﻿@model IEnumerable<MyHealthClinic.Models.ProfileViewModel>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Our General Practioners</h2>
+
+@if (User.IsInRole("Admin"))
+{
+    <p>
+        @Html.ActionLink("Create New GP", "Create")
+    </p>
+}
+
+<table class="table" id="gpTable">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Gender)
+            </th>
+            <th>Options</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var gp in Model)
+        {
+            <tr>
+                <th>
+                    @Html.DisplayFor(modelItem => gp.FirstName)
+                </th>
+                <th>
+                    @Html.DisplayFor(modelItem => gp.LastName)
+                </th>
+                <th>
+                    @Html.DisplayFor(modelItem => gp.Gender)
+                </th>
+                <th>
+                    @Html.ActionLink("Details", "Details", new { id = gp.Id }, new { @class = "btn btn-default" })
+                    @if (User.IsInRole("Admin"))
+                    {
+                        @Html.ActionLink("Edit", "Edit", new { id = gp.Id }, new { @class = "btn btn-default" })
+                    }
+                </th>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/datatables")
+    <script>
+        $(document).ready(function () {
+            $('#gpTable').DataTable();
+        });
+    </script>
+}

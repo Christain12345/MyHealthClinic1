@@ -1,0 +1,53 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+<section>
+    <div class="home-background">
+        <picture>
+            <source media="(min-width: 1080px)" srcset="/Content/Images/home_background_1080.jpg">
+            <source media="(min-width: 720px)" srcset="/Content/Images/home_background_720.jpg">
+            <source media="(min-width: 400px)" srcset="/Content/Images/home_background_400.jpg">
+            <img src="/Content/Images/home_background_400.jpg" alt="imagealttext" class="home-background">
+        </picture>
+    </div>
+</section>
+
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Our GP</h2>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque magna risus,
+            posuere sit amet magna pellentesque, semper maximus ex. Phasellus ut dolor ipsum.
+            Sed pretium lacus metus, a accumsan risus egestas a.
+            Morbi aliquam gravida dolor id scelerisque. Duis sed luctus lectus.
+        </p>
+        <p>
+            @Html.ActionLink("Find GP", "Index", "GeneralPractitioners", new { }, new { @class = "btn btn-default" })
+        </p>
+    </div>
+    <div class="col-md-4">
+        <h2>Booking Info</h2>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque magna risus,
+            posuere sit amet magna pellentesque, semper maximus ex. Phasellus ut dolor ipsum.
+            Sed pretium lacus metus, a accumsan risus egestas a.
+            Morbi aliquam gravida dolor id scelerisque. Duis sed luctus lectus.
+        </p>
+        <p>
+            @Html.ActionLink("Learn More", "About", new { }, new { @class = "btn btn-default" })
+        </p>
+    </div>
+    <div class="col-md-4">
+        <h2>Find Us</h2>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque magna risus,
+            posuere sit amet magna pellentesque, semper maximus ex. Phasellus ut dolor ipsum.
+            Sed pretium lacus metus, a accumsan risus egestas a.
+            Morbi aliquam gravida dolor id scelerisque. Duis sed luctus lectus.
+        </p>
+        <p>
+            @Html.ActionLink("Get Direction", "Contact", new { }, new { @class = "btn btn-default" })
+        </p>
+    </div>
+</div>

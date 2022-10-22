@@ -1,0 +1,46 @@
+﻿@{
+    ViewBag.Title = "Contact";
+}
+<h2>Contact us</h2>
+
+<address>
+    246 Clayton Rd,<br />
+    Clayton, VIC 3168<br />
+    <abbr title="Phone">P:</abbr>
+    +61 (0) 412 345 678
+</address>
+
+<hr />
+
+<div id="container">
+    <div id="map"></div>
+    <div id="sidebar"></div>
+</div>
+<div style="margin:10px;">
+    <h3>Get your way</h3>
+    <div class="row" style="margin:10px;">
+        <label for="start" class="col-md-2 control-label">Start</label>
+        <input type="text" id="start" class="col-md-4 form-control" />
+        <label for="end" class="col-md-2 control-label">End</label>
+        <select id="end" class="col-md-4 form-control">
+            <option value="246 Clayton Rd, Clayton VIC 3168">246 Clayton Rd, Clayton VIC 3168</option>
+        </select>
+    </div>
+
+    <div class="row" style="margin:10px;">
+        <label for="mode" class="col-md-2 control-label">Travel mode</label>
+        <select id="mode" class="col-md-4 form-control">
+            <option value="DRIVING">Driving</option>
+            <option value="WALKING">Walking</option>
+            <option value="BICYCLING">Bicycling</option>
+            <option value="TRANSIT">Transit</option>
+        </select>
+        <input type="submit" value="Go" class="btn btn-default col-md-offset-2 col-md-2" id="get-direction" />
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    @Scripts.Render("~/bundles/map")
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpCwxOn9dVTg5P_r1vNmvUuKgD405ktDE&callback=initMap&libraries=places&v=weekly" async></script>
+}

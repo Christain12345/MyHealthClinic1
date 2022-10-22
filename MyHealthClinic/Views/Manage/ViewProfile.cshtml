@@ -1,0 +1,56 @@
+﻿@model MyHealthClinic.Models.ProfileViewModel
+@using Microsoft.AspNet.Identity;
+@{
+    ViewBag.Title = "View profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Profile</h2>
+
+<hr />
+
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Gender)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Gender)
+        </dd>
+
+        @if (User.IsInRole("Patient"))
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.Dob)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Dob)
+            </dd>
+        }
+
+        <dt>
+            @Html.DisplayNameFor(model => model.About)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.About)
+        </dd>
+    </dl>
+</div>
+
+<p>
+    @Html.ActionLink("Edit", "EditProfile", new {id = User.Identity.GetUserId()})
+</p>

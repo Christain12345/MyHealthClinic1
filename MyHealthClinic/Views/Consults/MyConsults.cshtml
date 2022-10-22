@@ -1,0 +1,72 @@
+﻿@model IEnumerable<MyHealthClinic.Models.Consult>
+
+@{
+    ViewBag.Title = "Mu consults";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>My Consults</h2>
+
+<table class="table" id="my-consult-table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.AvailableTime.StartTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AvailableTime.EndTime)
+            </th>
+            @if (User.IsInRole("Patient"))
+            {
+                <th>General Practitioner</th>
+            }
+            else
+            {
+                <th>Patient</th>
+            }
+            <th>Option</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AvailableTime.StartTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AvailableTime.EndTime)
+                </td>
+                <th>
+                    @if (User.IsInRole("Patient"))
+                    {
+                        @Html.DisplayFor(modelItem => item.AvailableTime.GeneralPractioner.FirstName)
+                        @Html.DisplayFor(modelItem => item.AvailableTime.GeneralPractioner.LastName)
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(modelItem => item.Patient.FirstName)
+                        @Html.DisplayFor(modelItem => item.Patient.LastName)
+
+                    }
+                </th>
+                <td>
+                    @if (DateTime.Compare(item.AvailableTime.StartTime, DateTime.Now) >= 0)
+                    {
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/datatables")
+    <script>
+        $(document).ready(function () {
+            $('#my-consult-table').DataTable();
+        });
+    </script>
+}
