@@ -129,10 +129,10 @@ namespace MyHealthClinic.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            AvailableTime availableTime = db.AvailableTimes.Find(id);
+            AvailableTime availableTime = db.AvailableTimes.Include(at => at.GeneralPractioner).Where(at => at.GeneralPractioner.Id == id.ToString()).FirstOrDefault();
             if (User.IsInRole("General Practitioner"))
             {
-                if (User.Identity.GetUserId() != availableTime.GeneralPractioner.Id)
+                if (availableTime == null || User.Identity.GetUserId() != availableTime.GeneralPractioner.Id)
                 {
                     return HttpNotFound();
                 }
@@ -168,10 +168,10 @@ namespace MyHealthClinic.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            AvailableTime availableTime = db.AvailableTimes.Find(id);
+            AvailableTime availableTime = db.AvailableTimes.Include(at => at.GeneralPractioner).Where(at => at.GeneralPractioner.Id == id.ToString()).FirstOrDefault();
             if (User.IsInRole("General Practitioner"))
             {
-                if (User.Identity.GetUserId() != availableTime.GeneralPractioner.Id)
+                if (availableTime == null || User.Identity.GetUserId() != availableTime.GeneralPractioner.Id)
                 {
                     return HttpNotFound();
                 }
